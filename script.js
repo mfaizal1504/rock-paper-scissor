@@ -29,6 +29,34 @@ function getComputerChoice() {
 bot_choice = getComputerChoice();
 console.log(`bot choice is ${bot_choice}`);
 
-//Set value for player_choice by asking input using prompt
-player_choice = prompt("rock, paper, or scissor?");
-console.log(`player choice is ${player_choice}`);
+
+function getHumanChoice() {
+    
+    //Set value for player_choice by asking input using prompt
+    let askForInput = true; //loop breaker
+
+    while (askForInput) {
+
+        player_choice = prompt("rock, paper, or scissor?");
+
+        if (player_choice == null) {//handle choice if player press cancel
+            console.log("Player doesn't make a valid choice");
+            askForInput = false;
+        } else {
+            console.log(`player raw choice is ${player_choice}`); //display raw input
+            player_choice = String(player_choice).toLowerCase();
+            
+
+            //check if the choice is valid
+            if (player_choice == "rock" || player_choice == "paper" || player_choice == "scissor") {
+                //player made a valid choice
+                console.log(`player choice is ${player_choice}`);
+                askForInput = false;
+            } else {
+                alert("The choice made is invalid!");
+            }   
+        }
+    }
+
+}
+
