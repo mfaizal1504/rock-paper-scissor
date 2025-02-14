@@ -26,12 +26,8 @@ function getComputerChoice() {
     return bot_choice;
 }
 
-bot_choice = getComputerChoice();
-console.log(`bot choice is ${bot_choice}`);
-
-
 function getHumanChoice() {
-    
+
     //Set value for player_choice by asking input using prompt
     let askForInput = true; //loop breaker
 
@@ -42,16 +38,17 @@ function getHumanChoice() {
         if (player_choice == null) {//handle choice if player press cancel
             console.log("Player doesn't make a valid choice");
             askForInput = false;
+            return null;
         } else {
             console.log(`player raw choice is ${player_choice}`); //display raw input
             player_choice = String(player_choice).toLowerCase();
-            
 
             //check if the choice is valid
             if (player_choice == "rock" || player_choice == "paper" || player_choice == "scissor") {
                 //player made a valid choice
                 console.log(`player choice is ${player_choice}`);
                 askForInput = false;
+                return player_choice;
             } else {
                 alert("The choice made is invalid!");
             }   
@@ -60,3 +57,53 @@ function getHumanChoice() {
 
 }
 
+function playRound() {
+    //run a single run of the game, getting the bot input and
+    //player input and decide who wins the game
+    bot_choice = getComputerChoice();
+    console.log(`bot choice is ${bot_choice}`);
+    player_choice = getHumanChoice();
+    checkWinner(bot_choice, player_choice);
+    console.log(`Player: ${player_score}\nBot: ${bot_score}`);
+}
+
+function checkWinner(bot_choice, player_choice) {
+    //check winner for the round
+    //wins will give one point to the winner
+    //no points for draws
+    
+    if (player_choice == null) { //auto lose if no choice made
+        console.log("You lose since you didn't chose your hand!");
+        bot_score += 1;
+    } else {
+        if (player_choice == bot_choice) {
+            console.log(`It's a draw! You both chose ${player_choice}`);
+        } else {
+            if (player_choice == "rock") {
+                if (bot_choice == "scissor") {
+                    console.log("You win! Rock beats Scissor");
+                    player_score += 1;
+                } else {
+                    console.log("You lost! Paper beats Rock");
+                    bot_score += 1;
+                }
+            } else if (player_choice == "scissor") {
+                if (bot_choice == "rock") {
+                    console.log("You lost! Rock beats Scissor");
+                    bot_score += 1;
+                } else {
+                    console.log("You win! Scissor beats paper");
+                    player_score += 1;
+                }
+            } else { //player_choice is paper
+                if (bot_choice == "scissor") {
+                    console.log("You lost! Scissor beats Paper");
+                    bot_score += 1;
+                } else {
+                    console.log("You win! Paper beats Rock");
+                    player_score += 1;
+                }
+            }
+        }
+    }
+}
