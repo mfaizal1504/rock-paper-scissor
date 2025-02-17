@@ -14,7 +14,7 @@ let player_score = 0;
 function getComputerChoice() {
     // Create random_value with a random value
     random_value = Math.random() * 100;
-    console.log(`random value = ${random_value}`);
+    // console.log(`random value = ${random_value}`);
     // Set value of bot_choice based on the value of random_value (0-33=rock, 34-66=paper, 67-100=scissor)
     if (random_value >= 0 && random_value <= 33) {
         bot_choice = "rock";
@@ -40,7 +40,7 @@ function getHumanChoice() {
             askForInput = false;
             return null;
         } else {
-            console.log(`player raw choice is ${player_choice}`); //display raw input
+            // console.log(`player raw choice is ${player_choice}`); //display raw input
             player_choice = String(player_choice).toLowerCase();
 
             // check if the choice is valid
@@ -105,5 +105,11 @@ function checkWinner(bot_choice, player_choice) {
                 }
             }
         }
+    }
+}
+
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        playRound();
     }
 }
